@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -43,7 +43,17 @@ componentWillUnmount() {
           <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
+          <Route 
+          exact 
+          path='/signin' 
+          render ={() => 
+            this.props.currentUser ? (
+            <Redirect to='/' />
+            ) : (
+            <SignInAndSignUpPage />
+            ) 
+            } 
+            />
           </Switch>
      </div>
     );
@@ -51,12 +61,17 @@ componentWillUnmount() {
   
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
 export default connect(
-  null, mapDispatchToProps)(App);
+  mapStateToProps,
+  mapDispatchToProps)(App);
 
 
 
