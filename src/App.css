@@ -7,6 +7,9 @@ a {
     color: black;
 }
 
+footer {
+  text-align: center;
+}
 * {
    box-sizing: border-box; 
 }
