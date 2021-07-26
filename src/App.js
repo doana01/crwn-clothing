@@ -21,7 +21,8 @@ class App extends React.Component {
 unsubscribeFromAuth = null;
 
 componentDidMount() {
-  const {setCurrentUser} = this.props;
+const { setCurrentUser }  = this.props;
+
   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
   if (userAuth) {
     const userRef = await createUserProfileDocument(userAuth);
@@ -34,8 +35,8 @@ componentDidMount() {
     });
   }
 
- setCurrentUser({ currentUser: userAuth });
-  });
+ setCurrentUser (userAuth);
+ });
 }
 
 componentWillUnmount() {
@@ -79,6 +80,8 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps)(App);
+
+ 
 
 
 
